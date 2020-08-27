@@ -1,0 +1,17 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.package {
+  width: 100%;
+  max-width: 1000px;
+  flex-grow: 1;
+  margin: 24px 0px;
+}
+
+.package-name {
+  color: navy;
+}

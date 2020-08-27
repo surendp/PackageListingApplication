@@ -7,7 +7,7 @@ const events = require('events')
 const PACKAGE = 'package'
 const DESCRIPTION = 'description'
 const DEPENDS = 'depends'
-const PREDEPENDS = 'pre-depends'
+const BREAKS = 'breaks'
 
 let packages = []
 let packageOnProgress = {}
@@ -18,7 +18,7 @@ const splitLine = line => {
   let [key, value] = line.split(': ')
   key = key.toLowerCase()
 
-  if (key === DEPENDS || key === PREDEPENDS) {
+  if (key === DEPENDS || key === BREAKS) {
     return [key, value.split(', ')]
   }
 
@@ -35,7 +35,7 @@ const isRequiredInformation = key => {
  return (key === PACKAGE
   || key === DESCRIPTION
   || key === DEPENDS
-  || key === PREDEPENDS)
+  || key === BREAKS)
 }
 
 // create a package object
