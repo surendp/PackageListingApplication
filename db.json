@@ -1,0 +1,27 @@
+[
+  {
+    "package": "libws-commons-util-java",
+    "description": "Common utilities from the Apache Web Services Project<br/> This is a small collection of utility classes, that allow high<br/> performance XML processing based on SAX."
+  },
+  {
+    "package": "python-pkg-resources",
+    "depends": [
+      "python (>= 2.6)",
+      "python (<< 2.8)"
+    ],
+    "description": "Package Discovery and Resource Access using pkg_resources<br/> The pkg_resources module provides an API for Python libraries to<br/> access their resource files, and for extensible applications and<br/> frameworks to automatically discover plugins.  It also provides<br/> runtime support for using C extensions that are inside zipfile-format<br/> eggs, support for merging packages that have separately-distributed<br/> modules or subpackages, and APIs for managing Python's current<br/> \"working set\" of active packages."
+  },
+  {
+    "package": "coreutils",
+    "depends": [
+      "dpkg (>= 1.15.4) | install-info"
+    ],
+    "pre-depends": [
+      "libacl1 (>= 2.2.51-5)",
+      "libattr1 (>= 1:2.4.46-5)",
+      "libc6 (>= 2.15)",
+      "libselinux1 (>= 1.32)"
+    ],
+    "description": "GNU core utilities<br/> This package contains the basic file, shell and text manipulation<br/> utilities which are expected to exist on every operating system.<br/> .<br/> Specifically, this package includes:<br/> arch base64 basename cat chcon chgrp chmod chown chroot cksum comm cp<br/> csplit cut date dd df dir dircolors dirname du echo env expand expr<br/> factor false flock fmt fold groups head hostid id install join link ln<br/> logname ls md5sum mkdir mkfifo mknod mktemp mv nice nl nohup nproc od<br/> paste pathchk pinky pr printenv printf ptx pwd readlink rm rmdir runcon<br/> sha*sum seq shred sleep sort split stat stty sum sync tac tail tee test<br/> timeout touch tr true truncate tsort tty uname unexpand uniq unlink<br/> users vdir wc who whoami yes"
+  }
+]
