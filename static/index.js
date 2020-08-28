@@ -1,5 +1,5 @@
 let packages = []
-const baseUrl = 'http://localhost:3000/api/packages'
+const baseUrl = `${window.location.href}api/packages`
 
 // create new element node
 const createEl = el => document.createElement(el)
