@@ -1,3 +1,37 @@
+* {
+  font-family: 'Roboto';
+}
+
+html, body {
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: #f2f2f0;
+}
+
+.header {
+  height: 64px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 64px;
+  background-color: #5983AA;
+  text-align: center;
+  color: #ffffff;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.hidden-header {
+  margin-bottom: 64px;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -9,9 +43,41 @@
   width: 100%;
   max-width: 1000px;
   flex-grow: 1;
-  margin: 24px 0px;
+  margin-bottom: 16px;
+
+  background-color: #ffffff;
+  border: 0.5px solid #84878A;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
 }
 
 .package-name {
-  color: navy;
+  font-size: 24px;
+  height: 48px;
+  line-height: 48px;
+  padding: 0px 16px;
+  border-bottom: 0.5px solid #84878A;
+}
+
+.package-body-wraper {
+  padding: 16px;
+}
+
+.description {
+  padding-bottom: 16px;
+  font-weight: 300;
+}
+
+.dependencies {
+  border-top: 0.5px solid #84878A;
+  padding: 16px 0px;
+}
+
+.dependencies:hover {
+  cursor: pointer;
+}
+
+.dependency {
+  font-weight: 300;
 }

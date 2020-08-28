@@ -53,7 +53,7 @@ const createDependenciesNode = (dependencies, packageName, isReverseDependency) 
   rootNode.appendChild(dependenciesHeader)
 
   // add onclick event handler to the dependencies header
-  dependenciesHeader.addEventListener("click", () => {
+  rootNode.addEventListener("click", () => {
     if (rootNode.childNodes.length > 1) {
       rootNode.removeChild(rootNode.childNodes[1])
       return
@@ -84,22 +84,27 @@ const createDomNodeFromPackage = ({
   packageNode.innerHTML = package
   divNode.appendChild(packageNode)
 
+  // description, dependencies and reverse dependencies wraper
+  const wraperNode = createEl("div")
+  addCssClass(wraperNode, "package-body-wraper")
+  divNode.appendChild(wraperNode)
+
   // package description
   const descriptionNode = createEl("div")
   addCssClass(descriptionNode, "description")
   descriptionNode.innerHTML = description
-  divNode.appendChild(descriptionNode)
+  wraperNode.appendChild(descriptionNode)
 
   //dependencies
   if (depends) {
     const dependenciesNode = createDependenciesNode(depends, package)
-    divNode.appendChild(dependenciesNode)
+    wraperNode.appendChild(dependenciesNode)
   }
 
   // reverse dependencies
   if (breaks) {
     const reverseDependenciesNode = createDependenciesNode(breaks, package, true)
-    divNode.appendChild(reverseDependenciesNode)
+    wraperNode.appendChild(reverseDependenciesNode)
   }
 
   return divNode
