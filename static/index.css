@@ -32,6 +32,8 @@ body {
 
 .hidden-header {
   margin-bottom: 64px;
+  height: 64px;
+  width: 100%;
 }
 
 #root {
