@@ -1,4 +1,5 @@
 let packages = []
+let selectedPackage = null
 const baseUrl = `${window.location.href}api/packages`
 
 /*************************************** helper functions */
@@ -14,6 +15,35 @@ const addCssClass = (node, className) => node.classList.add(className)
 
 // add id to the supplied nodw
 const addId = (node, id) => node.id = id
+
+// clear the root element of dom
+const clearDom = () => {
+  const rootNode = selectEl("#root")
+  rootNode.innerHTML = null
+}
+
+// click event handler for package names
+const handleClickPackageName = newPackageName => {
+  return () => {
+    // if the new package is same as the selected package do nothing
+    if (selectedPackage && selectedPackage.package === newPackageName) {
+      return
+    }
+
+    // find out the selected package in packages list
+    const filteredPackage = packages
+      .filter(({ package }) => package === newPackageName)
+  
+    // if the package is not availabel do nothing
+    if (!filteredPackage.length) {
+      return
+    }
+  
+    // set new selected package object and re-render the dom
+    selectedPackage = filteredPackage[0]
+    render()
+  }
+}
 
 /**************************************** Functions to create a package node */
 
@@ -55,18 +85,10 @@ const createDependenciesNode = (dependencies, packageName, isReverseDependency) 
     ? "Reverse Dependencies"
     : "Dependencies"
   rootNode.appendChild(dependenciesHeader)
-
-  // add onclick event handler to the dependencies header
-  rootNode.addEventListener("click", () => {
-    if (rootNode.childNodes.length > 1) {
-      rootNode.removeChild(rootNode.childNodes[1])
-      return
-    }
   
-    // create and append list of dependencies
-    const ulNode = createUnorderedList(dependencies)
-    rootNode.appendChild(ulNode)
-  })
+  // create and append list of dependencies
+  const ulNode = createUnorderedList(dependencies)
+  rootNode.appendChild(ulNode)
 
   return rootNode
 }
@@ -77,21 +99,27 @@ const createDomNodeFromPackage = ({
   description,
   depends,
   breaks
-}) => {
+}, displayNameOnly) => {
   // wraper div for single package
-  const divNode = createEl("div")
-  addCssClass(divNode, "package")
+  const rootNode = createEl("div")
+  addCssClass(rootNode, "package")
 
   // package name
-  const packageNode = createEl("div")
-  addCssClass(packageNode, "package-name")
-  packageNode.innerHTML = package
-  divNode.appendChild(packageNode)
+  const packageNameNode = createEl("div")
+  addCssClass(packageNameNode, "package-name")
+  packageNameNode.innerHTML = package
+  rootNode.appendChild(packageNameNode)
+  
+  // return package node containing package name only
+  if (displayNameOnly) {
+    packageNameNode.addEventListener("click", handleClickPackageName(package))
+    return rootNode
+  }
 
   // description, dependencies and reverse dependencies wraper
   const wraperNode = createEl("div")
   addCssClass(wraperNode, "package-body-wraper")
-  divNode.appendChild(wraperNode)
+  rootNode.appendChild(wraperNode)
 
   // package description
   const descriptionNode = createEl("div")
@@ -111,19 +139,43 @@ const createDomNodeFromPackage = ({
     wraperNode.appendChild(reverseDependenciesNode)
   }
 
-  return divNode
+  return rootNode
 }
 
 /*********************** function to render the list of packages to the dom */
+
+// render all the package names on the screen
 const renderPackages = () => {
   // select parent div
   const rootElement = selectEl('#root')
 
   // render the data to the html page
   packages.forEach(package => {
-    const packageNode = createDomNodeFromPackage(package)
+    const packageNode = createDomNodeFromPackage(package, true)
     rootElement.appendChild(packageNode)
   })
+}
+
+// render detailed view of single package on the screen
+const renderSelectedPackage = () => {
+  // select parent div
+  const rootElement = selectEl('#root')
+
+  // render the data to the html page
+  const packageNode = createDomNodeFromPackage(selectedPackage)
+  rootElement.appendChild(packageNode)
+}
+
+// renders the final content to the dom
+const render = () => {
+  clearDom()
+
+  if (selectedPackage) {
+    renderSelectedPackage()
+    return
+  }
+
+  renderPackages()
 }
 
 /************************************************* fetch data from the api */
@@ -132,5 +184,5 @@ fetch(baseUrl)
   .then(response => response.json())
   .then(data => {
     packages = [ ...data ]
-    renderPackages()
+    render()
   })

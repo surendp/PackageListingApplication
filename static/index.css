@@ -64,6 +64,10 @@ body {
   border-bottom: 0.5px solid #84878A;
 }
 
+.package-name:hover {
+  cursor: pointer;
+}
+
 .package-body-wraper {
   padding: 16px;
 }
@@ -78,13 +82,14 @@ body {
   padding: 16px 0px;
 }
 
-.dependencies:hover {
-  cursor: pointer;
-}
-
 .dependency {
   font-weight: 300;
 }
+
+.dependency:hover {
+  cursor: pointer;
+}
+
 
 @media only screen and (max-width: 500px) {
   #root {
