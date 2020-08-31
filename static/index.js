@@ -1,6 +1,8 @@
 let packages = []
 const baseUrl = `${window.location.href}api/packages`
 
+/*************************************** helper functions */
+
 // create new element node
 const createEl = el => document.createElement(el)
 
@@ -12,6 +14,8 @@ const addCssClass = (node, className) => node.classList.add(className)
 
 // add id to the supplied nodw
 const addId = (node, id) => node.id = id
+
+/**************************************** Functions to create a package node */
 
 // create dependency node
 const createDependencyNode = dependency => {
@@ -110,7 +114,7 @@ const createDomNodeFromPackage = ({
   return divNode
 }
 
-// renders the list of packages to the dom
+/*********************** function to render the list of packages to the dom */
 const renderPackages = () => {
   // select parent div
   const rootElement = selectEl('#root')
@@ -122,7 +126,8 @@ const renderPackages = () => {
   })
 }
 
-// fetch data from the api
+/************************************************* fetch data from the api */
+
 fetch(baseUrl)
   .then(response => response.json())
   .then(data => {
