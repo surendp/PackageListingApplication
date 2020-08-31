@@ -25,6 +25,7 @@ const clearDom = () => {
 // click event handler for package names
 const handleClickPackageName = newPackageName => {
   return () => {
+    console.log(newPackageName)
     // if the new package is same as the selected package do nothing
     if (selectedPackage && selectedPackage.package === newPackageName) {
       return
@@ -45,6 +46,14 @@ const handleClickPackageName = newPackageName => {
   }
 }
 
+/**************************************** Function to create a divider node */
+
+const divider = () => {
+  const divider = createEl("div")
+  addCssClass(divider, "divider")
+  return divider
+}
+
 /**************************************** Functions to create a package node */
 
 // create dependency node
@@ -52,6 +61,9 @@ const createDependencyNode = dependency => {
   const liNode = createEl('li')
   addCssClass(liNode, "dependency")
   liNode.innerHTML = dependency
+
+  // add click event listener to the dependancy name
+  liNode.addEventListener("click", handleClickPackageName(dependency))
   return liNode
 }
 
@@ -116,27 +128,31 @@ const createDomNodeFromPackage = ({
     return rootNode
   }
 
+  rootNode.appendChild(divider())
+
   // description, dependencies and reverse dependencies wraper
-  const wraperNode = createEl("div")
-  addCssClass(wraperNode, "package-body-wraper")
-  rootNode.appendChild(wraperNode)
+  const wrapperNode = createEl("div")
+  addCssClass(wrapperNode, "package-body-wraper")
+  rootNode.appendChild(wrapperNode)
 
   // package description
   const descriptionNode = createEl("div")
   addCssClass(descriptionNode, "description")
   descriptionNode.innerHTML = description
-  wraperNode.appendChild(descriptionNode)
+  wrapperNode.appendChild(descriptionNode)
 
   //dependencies
   if (depends) {
+    wrapperNode.appendChild(divider())
     const dependenciesNode = createDependenciesNode(depends, package)
-    wraperNode.appendChild(dependenciesNode)
+    wrapperNode.appendChild(dependenciesNode)
   }
 
   // reverse dependencies
   if (breaks) {
+    wrapperNode.appendChild(divider())
     const reverseDependenciesNode = createDependenciesNode(breaks, package, true)
-    wraperNode.appendChild(reverseDependenciesNode)
+    wrapperNode.appendChild(reverseDependenciesNode)
   }
 
   return rootNode
