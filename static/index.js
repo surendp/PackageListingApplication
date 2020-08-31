@@ -22,10 +22,11 @@ const clearDom = () => {
   rootNode.innerHTML = null
 }
 
+/********************************************* Event handler functions */
+
 // click event handler for package names
 const handleClickPackageName = newPackageName => {
   return () => {
-    console.log(newPackageName)
     // if the new package is same as the selected package do nothing
     if (selectedPackage && selectedPackage.package === newPackageName) {
       return
@@ -46,6 +47,12 @@ const handleClickPackageName = newPackageName => {
   }
 }
 
+// click event handler for home button
+const handleClickHomeButton = () => {
+  selectedPackage = null
+  render()
+}
+
 /**************************************** Function to create a divider node */
 
 const divider = () => {
@@ -55,6 +62,15 @@ const divider = () => {
 }
 
 /**************************************** Functions to create a package node */
+
+// create return to home button
+const createHomeButton = () => {
+  const button = createEl("button")
+  button.innerHTML = "Home"
+  addCssClass(button, "home-button")
+  button.addEventListener("click", handleClickHomeButton)
+  return button
+}
 
 // create dependency node
 const createDependencyNode = dependency => {
@@ -128,6 +144,10 @@ const createDomNodeFromPackage = ({
     return rootNode
   }
 
+  // add home button inside package name node
+  packageNameNode.appendChild(createHomeButton())
+
+  // add a divider below package name node
   rootNode.appendChild(divider())
 
   // description, dependencies and reverse dependencies wraper
