@@ -1,9 +1,9 @@
 const path = require('path')
 
-const PORT = process.env.PORT || 3000
-const host = process.env.HOST || 'localhost'
-const sourceFileUrl = process.env.SOURCE_FILE_URL || path.join(path.dirname(__dirname), 'status.real')
-const dbFileUrl = process.env.DB_FILE_URL || path.join(path.dirname(__dirname), 'db.json')
+const PORT = 3000
+const host = 'localhost'
+const sourceFileUrl = path.join(path.dirname(__dirname), 'db', 'status.real')
+const dbFileUrl = path.join(path.dirname(__dirname), 'db', 'db.json')
 const baseUrl = `http://${host}:${PORT}/`
 
 module.exports = {

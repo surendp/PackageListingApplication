@@ -74,12 +74,26 @@ const createHomeButton = () => {
 
 // create dependency node
 const createDependencyNode = dependency => {
-  const liNode = createEl('li')
-  addCssClass(liNode, "dependency")
-  liNode.innerHTML = dependency
+  const dependencyNode = createEl('button')
+  addCssClass(dependencyNode, "dependency")
+  dependencyNode.innerHTML = dependency
 
   // add click event listener to the dependancy name
-  liNode.addEventListener("click", handleClickPackageName(dependency))
+  dependencyNode.addEventListener("click", handleClickPackageName(dependency))
+  return dependencyNode
+}
+
+// create list Item
+const createDependencyListItem = alternativeDependencies => {
+  // list node
+  const liNode = createEl('li')
+  addCssClass(liNode, "dependency-list")
+
+  // render alternative dependencies inside the list node
+  alternativeDependencies.forEach(altDep => {
+    liNode.appendChild(createDependencyNode(altDep))
+  })
+
   return liNode
 }
 
@@ -92,7 +106,7 @@ const createUnorderedList = dependencies => {
   // insert list of dependencies
   // to the un-ordered list
   dependencies.forEach(dependency => {
-    const dependencyNode = createDependencyNode(dependency)
+    const dependencyNode = createDependencyListItem(dependency)
     ulNode.appendChild(dependencyNode)
   })
 

@@ -93,8 +93,13 @@ body {
   padding: 16px 0px;
 }
 
+.dependency-list {
+  margin-bottom: 4px;
+}
+
 .dependency {
   font-weight: 300;
+  margin: 2px 4px 2px 0px;
 }
 
 .dependency:hover {

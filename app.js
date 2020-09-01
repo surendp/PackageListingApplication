@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-const databaseService = require('./databaseService')
+const databaseService = require('./db/databaseService')
 const packagesRouter = require('./controllers/packages')
 
 // initiate database
