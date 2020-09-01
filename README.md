@@ -5,6 +5,15 @@
 - Serves the data through an API endpoint
 - Renders the data on the browser in a readable format
 
+## Steps to run the applicatin
+
+```
+  git clone https://github.com/surendp/PackageListingApplication.git
+  cd ./PackageListingApplication
+  npm install
+  npm start
+```
+
 ## Technologies used
 
 - NodeJs
